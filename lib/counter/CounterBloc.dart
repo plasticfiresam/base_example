@@ -1,4 +1,5 @@
 import 'package:base_arch/base_arch.dart';
+import 'package:flutter/foundation.dart';
 
 part './CounterAction.dart';
 part './CounterState.dart';
@@ -10,6 +11,19 @@ class CounterBloc extends Bloc<CounterState, CounterAction, CounterReducer> {
 
 abstract class CounterReducer<A extends CounterAction>
     extends Reducer<CounterState, A> {}
+
+/// Редьюсер, который возвращает первоначальное состояние
+class InitialCounterActionReducer extends CounterReducer<InitialCounterAction> {
+  @override
+  Stream<CounterState> call(
+      CounterState prevState, InitialCounterAction action) async* {
+    CounterState nextState = prevState;
+    if (action.initialValue != null) {
+      nextState = nextState.copyWith(counterValue: action.initialValue);
+    }
+    yield nextState;
+  }
+}
 
 /// Редьюсер, отвечающий за обработку IncreaseCounterAction
 class IncreaseCounterActionReducer

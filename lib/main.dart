@@ -14,20 +14,30 @@ void main() {
       providers: [
         Provider<CounterBloc>(
           create: (BuildContext context) => CounterBloc({
+            InitialCounterAction: InitialCounterActionReducer(),
             IncreaseCounterAction: IncreaseCounterActionReducer(),
             DecreaseCounterAction: DecreaseCounterActionReducer()
           }),
         ),
       ],
-      child: BaseCounterExample(),
+      child: BaseCounterExample(
+        navigatorKey: navKey,
+      ),
     ),
   );
 }
 
 class BaseCounterExample extends StatelessWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  const BaseCounterExample({
+    Key key,
+    @required this.navigatorKey,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'Счётчик',
       initialRoute: '/home',
       routes: {

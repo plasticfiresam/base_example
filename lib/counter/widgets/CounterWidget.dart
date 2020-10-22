@@ -1,3 +1,4 @@
+import 'package:base_example/counter/widgets/CounterControls.dart';
 import 'package:flutter/material.dart';
 
 import '../CounterBloc.dart';
@@ -19,22 +20,16 @@ class CounterWidget extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Text(
-            '${state.counterValue}',
-            style: Theme.of(context).textTheme.headline1,
+          child: Center(
+            child: Text(
+              '${state.counterValue}',
+              style: Theme.of(context).textTheme.headline1,
+            ),
           ),
         ),
-        Row(
-          children: [
-            FlatButton(
-              onPressed: onIncrease,
-              child: Text('Уменьшить'),
-            ),
-            FlatButton(
-              onPressed: onDecrease,
-              child: Text('Увеличить'),
-            ),
-          ],
+        CounterControls(
+          onIncrease: onIncrease,
+          onDecrease: onDecrease,
         ),
       ],
     );

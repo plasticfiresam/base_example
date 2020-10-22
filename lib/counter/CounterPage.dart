@@ -11,6 +11,13 @@ class CounterPage extends StatefulWidget {
 
 class _CounterPageState extends State<CounterPage> {
   @override
+  void initState() {
+    super.initState();
+    Provider.of<CounterBloc>(context, listen: false)
+        .add(InitialCounterAction(initialValue: 5));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _bloc = Provider.of<CounterBloc>(context, listen: false);
     return Scaffold(
@@ -30,7 +37,9 @@ class _CounterPageState extends State<CounterPage> {
                     onDecrease: () => _bloc.add(DecreaseCounterAction()),
                   );
                 }
-                return SizedBox();
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
               },
             ),
           ),
